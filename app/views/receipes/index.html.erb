@@ -1,0 +1,41 @@
+<%  unless current_user.guest? %>
+  <%= link_to 'New Receipe', new_receipe_path %> <br/>
+  <%= link_to 'Receipes', receipes_path %></br>
+<% end %>
+
+<% if user_signed_in? %>
+  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>  
+<% end %>
+
+<h1>Listing of Food Receipe!</h1>
+ 
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Descrption</th>
+    <th>Ingredients</th>
+    <th colspan="2"></th>
+  </tr>
+ 
+  <% @receipes.each do |receipe| %>
+    <tr>
+      <td><%= receipe.name %></td>
+      <td><%= receipe.description %></td>
+      <td><%= receipe.ingredients.map(&:ingred).join(",") %></td>
+      <td>
+        <% if receipe.receipe_photos.present? %>
+          <%- receipe.receipe_photos.each do |p|%>
+            <%= image_tag p.photo.try(:url), :width=>"40", :height=>"40"%>
+          <% end %>
+        <% end %>
+      </td>
+      <%  unless current_user.guest? %>
+        <td><%= link_to 'Show', receipe_path(receipe) %></td>
+        <td><%= link_to 'Edit', edit_receipe_path(receipe) %></td>
+         <td><%= link_to 'Destroy', receipe_path(receipe),
+                method: :delete,
+                data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

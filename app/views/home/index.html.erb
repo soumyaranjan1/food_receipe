@@ -1,0 +1,22 @@
+<%  unless current_user.guest? %>
+  <%= link_to('Edit registration', edit_user_registration_path) %><br>
+  <%= link_to 'New Receipe', new_receipe_path %><br>
+  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>  
+<% else %>
+  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>  
+<% end %> <br>
+
+<h1>Listing Of Food Ingredients</h1>
+ 
+<table>
+  <tr>
+    <th>Ingredients</th>
+  </tr>
+ 
+  <% @ingredients.each do |ingredient| %>
+    <tr>
+      <td><%= link_to "#{ingredient.ingred}",receipes_path(:ingred => ingredient.ingred) %></td>
+      <td><%#= link_to 'Show', receipes_path(receipe) if current_user %></td>
+    </tr>
+  <% end %>
+</table

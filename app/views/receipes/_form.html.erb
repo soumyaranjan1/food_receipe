@@ -1,0 +1,48 @@
+
+<%= form_with model: @receipe, local: true do |form| %>
+ 
+  <% if @receipe.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@receipe.errors.count, "error") %> prohibited
+        this receipe from being saved:
+      </h2>
+      <ul>
+        <% @receipe.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+ 
+  <p>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+  </p>
+ 
+  <p>
+    <%= form.label :description %><br>
+    <%= form.text_area :description %>
+  </p>
+
+  <%= form.nested_fields_for :ingredients do |builder| %>
+    <p>
+      <%= builder.label :ingredients %>
+      <%= builder.text_field :ingred %>
+      <%= builder.remove_nested_fields_link 'Remove me'%>
+    </p>
+  <% end %>
+  <%= form.add_nested_fields_link :ingredients , 'Add another ingredient' %>
+  <%= form.nested_fields_for :receipe_photos do |image| %>
+    <p>
+      <%= image.label :receipe_photos %>
+      <%= image.file_field :photo %>
+      <%= image.remove_nested_fields_link 'Remove me'%>
+    </p>
+  <% end %>
+ <%= form.add_nested_fields_link :receipe_photos , 'Add another photo' %>
+  <p>
+    <%= form.submit %>
+  </p>
+ 
+<% end %>

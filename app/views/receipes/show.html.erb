@@ -1,0 +1,18 @@
+<p>
+  <strong>Name:</strong>
+  <%= @receipe.name %>
+</p>
+ 
+<p>
+  <strong>Description:</strong>
+  <%= @receipe.description %>
+</p>
+
+<p>
+  <strong>Ingredients:</strong>
+  <%= @receipe.ingredients.map(&:ingred).join(",") %>
+</p>
+
+<%#= link_to 'Back', receipes_path(receipe) %>
+<%= link_to 'Edit', edit_receipe_path(@receipe) %> |
+<%= link_to 'Back', receipes_path %>
