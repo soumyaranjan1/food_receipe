@@ -7,6 +7,6 @@ class User < ApplicationRecord
    #user logic 
 
 	def move_to(user)
-	  todos.update_all(user_id: user.id)
+	  #todos.update_all(user_id: user.id)
 	end
 end
